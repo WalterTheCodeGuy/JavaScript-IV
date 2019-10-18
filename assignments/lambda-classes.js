@@ -26,6 +26,15 @@ class Instructors extends Person {
   grade(student, subject){
     return console.log(`${student.name} receives a 3 on ${subject}.`);
   }
+  addOrSub(student){
+      let previous = student.grade;
+      let minGrade = 1;
+      let maxGrade = 100 - student.grade;
+      let random = Math.round((Math.random() - 0.5) * (maxGrade - minGrade) + minGrade);
+      let final = `${this.name} set ${student.name}'s grade to ${student.grade + random} with a difference of ${random}, ${student.name} had a previous grade of ${previous}`
+      student.grade = student.grade + random
+      return final
+  }
 }
 
 // Student Class
@@ -35,6 +44,7 @@ class Students extends Person {
     this.previousBackground = student.previousBackground;
     this.className = student.className;
     this.favSubjects = student.favSubjects;
+    this.grade = student.grade;
   }
   listsSubjects() {
     this.favSubjects.forEach(subject => {
@@ -46,6 +56,13 @@ class Students extends Person {
   }
   sprintChallenge(subject){
     return console.log(`${this.name} has begun sprint challenge on ${subject}.`);
+  }
+  graduate() {
+      if(this.grade >= 70) {
+          console.log(`${this.name} has just graduated from ${this.className} with a grade of ${this.grade}!`)
+      }else{
+          console.log(`Sorry ${this.name}, but you need to study some more!`)
+      }
   }
 }
 
@@ -81,6 +98,7 @@ const walter = new Students({
   age: '$)',
   previousBackground: 'Customer Service',
   className: 'WEB25',
+  grade: 50,
   favSubjects: ['HTML', 'CSS', 'JavaScript'],
 });
 
@@ -106,3 +124,8 @@ walter.PRAssignment('JavaScript-IV');
 walter.sprintChallenge('JavaScript Fundamentals');
 allie.standUp('web25_allie');
 allie.debugsCode(walter, 'JavaScript');
+
+//Stretch methods
+console.log(britt.addOrSub(walter));
+console.log(walter.grade);
+walter.graduate();
